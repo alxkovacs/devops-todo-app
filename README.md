@@ -154,16 +154,6 @@ Az API elérhető a [http://localhost:5000](http://localhost:5000) címen.
       "user_id": 1
     }
   ]
-  ```json
-  [
-    {
-      "id": 1,
-      "title": "Vásárolni",
-      "due_date": "2024-12-31T12:00:00",
-      "tags": ["bevásárlás", "urgent"],
-      "user_id": 1
-    }
-  ]
   ```
 
 #### Új Todo Hozzáadása
@@ -175,19 +165,6 @@ Az API elérhető a [http://localhost:5000](http://localhost:5000) címen.
     "title": "Új Feladat",
     "due_date": "2024-12-31T12:00:00",
     "tags": "munka,sürgős",
-    "user_id": 1
-  }
-  ```
-- **Válasz**:
-  ```json
-  {
-    "message": "Todo added"
-  }
-  ```json
-  {
-    "title": "Új Feladat",
-    "due_date": "2024-12-31T12:00:00",
-    "tags": ["munka", "sürgős"],
     "user_id": 1
   }
   ```
@@ -217,16 +194,6 @@ Az API elérhető a [http://localhost:5000](http://localhost:5000) címen.
   {
     "message": "User added"
   }
-  ```json
-  {
-    "name": "Kovács János"
-  }
-  ```
-- **Válasz**:
-  ```json
-  {
-    "message": "User added"
-  }
   ```
 
 #### Összes Felhasználó Lekérdezése
@@ -239,13 +206,6 @@ Az API elérhető a [http://localhost:5000](http://localhost:5000) címen.
       "id": 1,
       "username": "Kovács János",
       "email": "janos.kovacs@example.com"
-    }
-  ]
-  ```json
-  [
-    {
-      "id": 1,
-      "name": "Kovács János"
     }
   ]
   ```
