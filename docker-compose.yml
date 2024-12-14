@@ -2,7 +2,7 @@ version: '3'
 
 services:
   todo_app:
-    image: username/todo-app:latest
+    image: elekssz/todo-app:latest
     ports:
       - "5000:5000"
     environment:
