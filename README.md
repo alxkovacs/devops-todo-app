@@ -16,6 +16,8 @@ Egyszerű és robusztus Todo List API Python és Flask segítségével, amely CR
 - [API Végpontok](#api-végpontok)
   - [Todo Végpontok](#todo-végpontok)
   - [Felhasználó Végpontok](#felhasználó-végpontok)
+- [Használati Példák](#használati-példák)
+  - [Python Kód Példák](#python-kód-példák)
 - [Tesztelés](#tesztelés)
 - [CI/CD Folyamat](#cicd-folyamat)
 - [Konténerizáció Dockerrel](#konténerizáció-dockerrel)
@@ -25,9 +27,6 @@ Egyszerű és robusztus Todo List API Python és Flask segítségével, amely CR
 - [Monitorozás](#monitorozás)
   - [Prometheus](#prometheus)
   - [Grafana](#grafana)
-- [Használati Példák](#használati-példák)
-- [Hozzájárulás](#hozzájárulás)
-- [Licenc](#licenc)
 
 ---
 
@@ -151,6 +150,16 @@ Az API elérhető a [http://localhost:5000](http://localhost:5000) címen.
       "id": 1,
       "title": "Vásárolni",
       "due_date": "2024-12-31T12:00:00",
+      "tags": "bevásárlás,urgent",
+      "user_id": 1
+    }
+  ]
+  ```json
+  [
+    {
+      "id": 1,
+      "title": "Vásárolni",
+      "due_date": "2024-12-31T12:00:00",
       "tags": ["bevásárlás", "urgent"],
       "user_id": 1
     }
@@ -161,6 +170,19 @@ Az API elérhető a [http://localhost:5000](http://localhost:5000) címen.
 
 - **Végpont**: `POST /todos/`
 - **Kérés Törzse**:
+  ```json
+  {
+    "title": "Új Feladat",
+    "due_date": "2024-12-31T12:00:00",
+    "tags": "munka,sürgős",
+    "user_id": 1
+  }
+  ```
+- **Válasz**:
+  ```json
+  {
+    "message": "Todo added"
+  }
   ```json
   {
     "title": "Új Feladat",
@@ -186,6 +208,17 @@ Az API elérhető a [http://localhost:5000](http://localhost:5000) címen.
 - **Kérés Törzse**:
   ```json
   {
+    "username": "Kovács János",
+    "email": "janos.kovacs@example.com"
+  }
+  ```
+- **Válasz**:
+  ```json
+  {
+    "message": "User added"
+  }
+  ```json
+  {
     "name": "Kovács János"
   }
   ```
@@ -204,10 +237,55 @@ Az API elérhető a [http://localhost:5000](http://localhost:5000) címen.
   [
     {
       "id": 1,
+      "username": "Kovács János",
+      "email": "janos.kovacs@example.com"
+    }
+  ]
+  ```json
+  [
+    {
+      "id": 1,
       "name": "Kovács János"
     }
   ]
   ```
+
+## Használati Példák
+
+### Python Kód Példák
+
+```python
+import requests
+
+# Első kérés: Felhasználó létrehozása
+try:
+    response1 = requests.post(
+        "http://localhost:5000/users/",
+        headers={"Content-Type": "application/json"},
+        json={"username": "Kovács János", "email": "kovacs.janos@example.com"}
+    )
+    response1.raise_for_status()
+    print(response1.json())
+except requests.exceptions.RequestException as e:
+    print(f"Hiba történt a felhasználó létrehozásakor: {e}")
+
+# Második kérés: Teendő létrehozása
+try:
+    response2 = requests.post(
+        "http://localhost:5000/todos/",
+        headers={"Content-Type": "application/json"},
+        json={
+            "title": "Dokumentáció befejezése",
+            "due_date": "2024-12-31T12:00:00",
+            "tags": "dokumentáció,sürgős",  # Lista helyett vesszővel elválasztott szöveg
+            "user_id": 1
+        }
+    )
+    response2.raise_for_status()
+    print(response2.json())
+except requests.exceptions.RequestException as e:
+    print(f"Hiba történt a teendő létrehozásakor: {e}")
+```
 
 ---
 
@@ -252,9 +330,3 @@ Prometheus gyűjti és tárolja a metrikákat. Konfiguráció: `prometheus_clien
 ### Grafana
 
 Grafana vizualizálja a Prometheus által gyűjtött adatokat. Elérhető a [http://localhost:3000](http://localhost:3000) címen.
-
----
-
-## Licenc
-
-Ez a projekt az MIT Licenc alatt van licencelve.
