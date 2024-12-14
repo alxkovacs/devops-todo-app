@@ -46,4 +46,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: elekssz/todo-app:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/todo-app:latest
